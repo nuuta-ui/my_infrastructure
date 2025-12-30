@@ -19,7 +19,7 @@ on:
 #    - cron: '0 9 * * *'  # 例)毎日朝9時に実行
 
 jobs:
-  dbt-run:
+  dbt-compile:
     runs-on: ubuntu-latest
 
     steps:

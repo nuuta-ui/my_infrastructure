@@ -8,7 +8,7 @@ on:
       - dbt/**
 
 jobs:
-  dbt-run:
+  dbt-deploy:
     runs-on: ubuntu-latest
 
     steps:
