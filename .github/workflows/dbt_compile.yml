@@ -1,4 +1,4 @@
-name: Run dbt Project
+name: Compile dbt Project
 
 
 on:
