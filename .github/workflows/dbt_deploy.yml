@@ -1,0 +1,59 @@
+name: Run dbt Project
+
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - dbt/**
+  
+#定期実行を設定する場合
+#on:
+#  push:
+#    branches:
+#      - main
+#  workflow_dispatch:
+#  schedule:
+#    - cron: '0 9 * * *'  # 例)毎日朝9時に実行
+
+jobs:
+  dbt-run:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.8'
+
+      - name: Install dbt dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install dbt-core dbt-snowflake
+
+      - name: Configure dbt profile for Snowflake
+        run: |
+          mkdir -p ~/.dbt
+          echo "
+          my_project:
+            outputs:
+              dev:
+                account: '${{ secrets.SNOWFLAKE_ACCOUNT }}'
+                database: '${{ secrets.SNOWFLAKE_DATABASE }}'
+                password: '${{ secrets.SNOWFLAKE_PASSWORD }}'
+                role: '${{ secrets.SNOWFLAKE_ROLE }}'
+                schema: '${{ secrets.SNOWFLAKE_SCHEMA }}'
+                threads: 1
+                type: snowflake
+                user: '${{ secrets.SNOWFLAKE_USER }}'
+                warehouse: '${{ secrets.SNOWFLAKE_WAREHOUSE }}'
+            target: dev
+          " > ~/.dbt/profiles.yml
+
+      - name: Run dbt
+        working-directory: ./dbt/my_project  # dbt_project.ymlがあるディレクトリを指定
+        run: dbt compile
