@@ -40,7 +40,7 @@ jobs:
         run: |
           mkdir -p ~/.dbt
           echo "
-          date_change:
+          my_project:
             outputs:
               dev:
                 account: '${{ secrets.SNOWFLAKE_ACCOUNT }}'
