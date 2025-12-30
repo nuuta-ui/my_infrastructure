@@ -1,4 +1,4 @@
-name: Run dbt Project
+name: Compile dbt Project
 
 
 on:
@@ -19,7 +19,7 @@ on:
 #    - cron: '0 9 * * *'  # 例)毎日朝9時に実行
 
 jobs:
-  dbt-run:
+  dbt-compile:
     runs-on: ubuntu-latest
 
     steps:
@@ -55,6 +55,6 @@ jobs:
             target: dev
           " > ~/.dbt/profiles.yml
 
-      - name: Run dbt
+      - name: Compile dbt
         working-directory: ./dbt/my_project  # dbt_project.ymlがあるディレクトリを指定
         run: dbt compile
