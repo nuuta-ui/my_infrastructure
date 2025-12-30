@@ -55,6 +55,6 @@ jobs:
             target: dev
           " > ~/.dbt/profiles.yml
 
-      - name: Run dbt
+      - name: Compile dbt
         working-directory: ./dbt/my_project  # dbt_project.ymlがあるディレクトリを指定
         run: dbt compile
