@@ -1,11 +1,13 @@
 name: Run dbt Project
 
-'on':
+
+on:
   push:
     branches:
       - main
     paths:
       - dbt/**
+
 
 jobs:
   dbt-run:
