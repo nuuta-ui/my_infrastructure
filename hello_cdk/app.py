@@ -23,6 +23,7 @@ HelloCdkStack(app, "HelloCdkStack",
     #env=cdk.Environment(account='123456789012', region='us-east-1'),
 
     # For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html
+    env=cdk.Environment(account='102493262116', region='ap-northeast-1'),
     )
 
 app.synth()
